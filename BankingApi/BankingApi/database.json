@@ -1,0 +1,22 @@
+{
+  "institutions": [
+    {
+      "institutionId": 78923,
+      "name": "First Credit Union"
+    }
+  ],
+  "members": [
+    {
+      "memberId": 234789,
+      "givenName": "John",
+      "surname": "Doe",
+      "institutionId": 78923,
+      "accounts": [
+        {
+          "accountId": 23456,
+          "balance": 12.50
+        }
+      ]
+    }
+  ]
+}
