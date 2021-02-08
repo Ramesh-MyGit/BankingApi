@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using BankingApi.DataAccess;
 using BankingApi.Dto;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BankingApi.Controllers
@@ -25,8 +26,11 @@ namespace BankingApi.Controllers
         /// <param name="id">Id of the account</param>
         /// <param name="balance">Balance to update</param>
         /// <returns>NotFound reponse when account is not found, NoContent response to indicate successful transaction</returns>
-        [HttpPut]
+        [HttpPatch]
         [Route("{id:int}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult> UpdateBalance(int id, [FromBody] decimal balance)
         {
             var account = await _accountRepository.GetAccount(id);
@@ -55,8 +59,11 @@ namespace BankingApi.Controllers
         /// NoContent response to indicate successful transaction.
         /// UnprocessableEntity response for validation errors.
         /// </returns>
-        [HttpPut]
+        [HttpPatch ]
         [Route("Transfer")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult> Transfer([FromBody] TransferDto transferDto)
         {
             var fromAccount = await _accountRepository.GetAccount(transferDto.FromAccount);

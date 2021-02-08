@@ -10,7 +10,6 @@ namespace BankingApi.Dto
     public class MemberDto
     {
         [JsonProperty("memberId")]
-        [Required]
         public int MemberId { get; set; }
 
         [JsonProperty("givenName")]

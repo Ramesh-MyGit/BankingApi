@@ -10,7 +10,6 @@ namespace BankingApi.Dto
     public class AccountDto
     {
         [JsonProperty("accountId")]
-        [Required]
         public int AccountId { get; set; }
         [JsonProperty("balance")]        
         public decimal Balance { get; set; }

@@ -35,6 +35,7 @@ namespace BankingApi.Controllers
         /// </summary>
         /// <returns>200 OK response</returns>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> Get()
         {
             var members = await _memberRepository.GetMembers();
@@ -51,6 +52,8 @@ namespace BankingApi.Controllers
         /// </returns>
         [HttpGet()]
         [Route("{id:int}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> GetById(int id)
         {
             var member = await _memberRepository.GetMembers(id);
@@ -72,6 +75,8 @@ namespace BankingApi.Controllers
         /// 201 Created response when add is success
         /// </returns>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult> Post([FromBody] MemberDto memberDto)
         {
             var institution = await _institutionRepository.GetInstitutions(memberDto.InstitutionId);
@@ -100,6 +105,8 @@ namespace BankingApi.Controllers
         /// </returns>
         [HttpPut]
         [Route("{id:int}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult> Put(int id, [FromBody] MemberDto memberDto)
         {
             var institution = await _institutionRepository.GetInstitutions(memberDto.InstitutionId);
@@ -132,6 +139,8 @@ namespace BankingApi.Controllers
         /// </returns>
         [HttpDelete]
         [Route("{id:int}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult> Delete(int id)
         {
             var member = await _memberRepository.GetMembers(id);

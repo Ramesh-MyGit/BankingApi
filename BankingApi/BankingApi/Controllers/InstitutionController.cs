@@ -2,6 +2,7 @@
 using BankingApi.DataAccess;
 using BankingApi.Dto;
 using BankingApi.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,7 @@ namespace BankingApi.Controllers
         /// </summary>
         /// <returns>200 OK response</returns>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> Get()
         {
             var institutions = await _institutionRepository.GetInstitutions();
@@ -47,6 +49,8 @@ namespace BankingApi.Controllers
         /// </returns>
         [HttpGet]
         [Route("{id:int}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> GetById(int id)
         {
             var institution = await _institutionRepository.GetInstitutions(id);
@@ -68,6 +72,8 @@ namespace BankingApi.Controllers
         /// 201 Created response for successful add
         /// </returns>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult> Post([FromBody] InstitutionDto institutionDto)
         {
             var institution = await _institutionRepository.GetInstitutionByName(institutionDto.Name);
